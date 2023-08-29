@@ -77,7 +77,7 @@ def buy_recommendation(df, portifolio):
 
 
 def sell_recommendation(df, portifolio):
-    res = df[df[COL_PRICE] > df[COL_52W_H]*6/100]
+    res = df[df[COL_PRICE] > df[COL_52W_H]*95/100]
     return res
     # for index, row in df.iterrows():
     #     if not need_recommendataion(index, portifolio):
