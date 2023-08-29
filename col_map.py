@@ -52,28 +52,27 @@ def buy_recommendation(df, portifolio):
 
     res = df[5 <= df[COL_SYM_PE]]
     res = res[res[COL_SYM_PE] <= 25]
-    return res
-    # for index, row in df.iterrows():
-    #     if not need_recommendataion(index, portifolio):
-    #         continue # skip the stock from recommendataion
-    #     notes = []
-    #     if row[COL_PRICE] <= parse_dict(index, COL_BUY, data=portifolio):
-    #         notes.append('our buy target')
-    #     if isinstance(row[COL_SEC_PE], (int, float)) and isinstance(row[COL_SYM_PE], (int, float)) and row[COL_SYM_PE] <= parse_dict(index, COL_SYM_PE, data=portifolio, default=5) and row[COL_SYM_PE] <= row[COL_SEC_PE]:
-    #         notes.append('Sym P/E')
-    #     if row[COL_DIV_YIELD] >= parse_dict(index, COL_DIV_YIELD, data=portifolio, default=10):
-    #         notes.append('Dividend yield')
-    #     if row[COL_CNGE_PERCENT] <= parse_dict(index, COL_BUY_CNGE_PERCENT, data=portifolio, default=-8):
-    #         notes.append('Change in a day')
-    #     if row[COL_BULKDEALS][1] == 'BUY':
-    #         notes.append('Bulk deals')
+    for index, row in res.iterrows():
+        if not need_recommendataion(index, portifolio):
+            continue # skip the stock from recommendataion
+        notes = []
+        # if row[COL_PRICE] <= parse_dict(index, COL_BUY, data=portifolio):
+            # notes.append('our buy target')
+        if isinstance(row[COL_SEC_PE], (int, float)) and isinstance(row[COL_SYM_PE], (int, float)) and row[COL_SYM_PE] <= parse_dict(index, COL_SYM_PE, data=portifolio, default=5) and row[COL_SYM_PE] <= row[COL_SEC_PE]:
+            notes.append('Sym P/E')
+        # if row[COL_DIV_YIELD] >= parse_dict(index, COL_DIV_YIELD, data=portifolio, default=10):
+            # notes.append('Dividend yield')
+        # if row[COL_CNGE_PERCENT] <= parse_dict(index, COL_BUY_CNGE_PERCENT, data=portifolio, default=-8):
+            # notes.append('Change in a day')
+        # if row[COL_BULKDEALS][1] == 'BUY':
+            # notes.append('Bulk deals')
 
-    #     if notes:
-    #         df.at[index, COL_RECOMMEND_B_S] = 'Buy'
-    #         df.at[index, COL_RECOMMEND_NOTES] = ','.join(notes)
+        if notes:
+            res.at[index, COL_RECOMMEND_B_S] = 'Buy'
+            res.at[index, COL_RECOMMEND_NOTES] = ','.join(notes)
 
-    # # limit dataframe for only buy and sort
-    # return df[df[COL_RECOMMEND_B_S] == 'Buy'].sort_index()
+    # limit dataframe for only buy and sort
+    return res[res[COL_RECOMMEND_B_S] == 'Buy'].sort_index()
 
 
 def sell_recommendation(df, portifolio):
