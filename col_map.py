@@ -53,8 +53,8 @@ def buy_recommendation(df, portifolio):
     res = df[5 <= df[COL_SYM_PE]]
     res = res[res[COL_SYM_PE] <= 25]
     for index, row in res.iterrows():
-        if not need_recommendataion(index, portifolio):
-            continue # skip the stock from recommendataion
+        # if not need_recommendataion(index, portifolio):
+            # continue # skip the stock from recommendataion
         notes = []
         # if row[COL_PRICE] <= parse_dict(index, COL_BUY, data=portifolio):
             # notes.append('our buy target')
