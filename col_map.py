@@ -1,4 +1,5 @@
 """ buy/sell trigger configuration for ticker """
+import numpy as np
 
 COL_SCRIPT = 'Script'
 COL_SECTOR = 'Sector'
@@ -49,7 +50,7 @@ def need_recommendataion(index, portifolio):
 
 
 def buy_recommendation(df, portifolio):
-
+    df[COL_SYM_PE] = np.where(df[COL_SYM_PE] == 'NA', 0, df[COL_SYM_PE])
     res = df[5 <= df[COL_SYM_PE]]
     res = res[res[COL_SYM_PE] <= 25]
     for index, row in res.iterrows():
