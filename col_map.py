@@ -1,5 +1,4 @@
 """ buy/sell trigger configuration for ticker """
-import numpy as np
 
 COL_SCRIPT = 'Script'
 COL_SECTOR = 'Sector'
@@ -22,6 +21,9 @@ COL_DEL_RATIO = 'Delivery to Traded Ratio'
 COL_ACT_RANK = 'Most active rank'
 COL_BOOK_VAL = 'Book Value'
 COL_DIV_YIELD = 'Dividend Yield'
+COL_MRKT_CAP = 'Market Cap'
+COL_ROCE = 'ROCE'
+COL_ROE = 'ROE'
 COL_52W_H = '52W High'
 COL_BUY_52W_H = 'Buy 52W High'
 COL_SELL_52W_H = 'Sell 52W High'
@@ -49,10 +51,19 @@ def need_recommendataion(index, portifolio):
     return portifolio.get(index, {}).get(COL_RANK, 8) < 8
 
 
-def buy_recommendation(df, portifolio):
-    df[COL_SYM_PE] = np.where(df[COL_SYM_PE] == 'NA', 0, df[COL_SYM_PE])
+def global_config_filters(df):
     res = df[5 <= df[COL_SYM_PE]]
     res = res[res[COL_SYM_PE] <= 25]
+    res = res[res[COL_ROE] >= 10]
+    res = res[res[COL_ROCE] >= 10]
+    res = res[res[COL_DIV_YIELD] >= 0.75]
+    res = res[res[COL_MRKT_CAP] >= 1000]
+
+    return res
+
+def buy_recommendation(df, portifolio):
+    res = global_config_filters(df)
+
     for index, row in res.iterrows():
         # if not need_recommendataion(index, portifolio):
             # continue # skip the stock from recommendataion
