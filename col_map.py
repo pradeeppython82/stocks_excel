@@ -6,7 +6,11 @@ COL_BETA = 'Beta'
 COL_BUY = 'Buy Value'
 COL_MARGIN = 'Buy Margin'
 COL_SEC_PE = 'Sector P/E'
+COL_SEC_PE_MIN = 'Sector P/E Min'
+COL_SEC_PE_MAX = 'Sector P/E Max'
 COL_SYM_PE = 'Symbol P/E'
+COL_SYM_PE_MIN = 'Symbol P/E Min'
+COL_SYM_PE_MAX = 'Symbol P/E Max'
 COL_PRICE = 'Current Price'
 COL_BULKDEALS = 'Bulk Deals'
 COL_BUY_CNGE_PERCENT = 'Buy Percentage Change'
@@ -51,18 +55,21 @@ def need_recommendataion(index, portifolio):
     return portifolio.get(index, {}).get(COL_RANK, 8) < 8
 
 
-def global_config_filters(df):
-    res = df[5 <= df[COL_SYM_PE]]
-    res = res[res[COL_SYM_PE] <= 25]
-    res = res[res[COL_ROE] >= 10]
-    res = res[res[COL_ROCE] >= 10]
-    res = res[res[COL_DIV_YIELD] >= 0.75]
-    res = res[res[COL_MRKT_CAP] >= 1000]
+def global_config_filters(df, g_config):
+    res = df[g_config[COL_SYM_PE_MIN] <= df[COL_SYM_PE]]
+    res = res[res[COL_SYM_PE] <= g_config[COL_SYM_PE_MAX]]
+    res = res[g_config[COL_SEC_PE_MIN] <= res[COL_SEC_PE]]
+    res = res[res[COL_SEC_PE] <= g_config[COL_SEC_PE_MAX]]
+    res = res[res[COL_ROE] >= g_config[COL_ROE]]
+    res = res[res[COL_ROCE] >= g_config[COL_ROCE]]
+    res = res[res[COL_DIV_YIELD] >= g_config[COL_DIV_YIELD]]
+    res = res[res[COL_MRKT_CAP] >= g_config[COL_MRKT_CAP]]
+    res = res[res[COL_MARGIN] >= g_config[COL_MARGIN]]
 
     return res
 
-def buy_recommendation(df, portifolio):
-    res = global_config_filters(df)
+def buy_recommendation(df, portifolio, g_config):
+    res = global_config_filters(df, g_config)
 
     for index, row in res.iterrows():
         # if not need_recommendataion(index, portifolio):
@@ -84,7 +91,7 @@ def buy_recommendation(df, portifolio):
             res.at[index, COL_RECOMMEND_NOTES] = ','.join(notes)
 
     # limit dataframe for only buy and sort
-    return res[res[COL_RECOMMEND_B_S] == 'Buy'].sort_index()
+    return res[res[COL_RECOMMEND_B_S] == 'Buy'].sort_values(by=[COL_MARGIN], ascending=False)
 
 
 def sell_recommendation(df, portifolio):
