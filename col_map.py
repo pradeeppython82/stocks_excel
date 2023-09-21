@@ -35,6 +35,7 @@ COL_52W_L = '52W Low'
 COL_RECOMMEND_B_S = 'Buy/Sell/None'
 COL_RECOMMEND_NOTES = 'Notes'
 COL_RANK = 'Rank'
+COL_CP_BP_RATIO = 'CPrice BPrice Ratio'
 
 
 def parse_dict(*args, data=None, default=None):
@@ -65,6 +66,7 @@ def global_config_filters(df, g_config):
     res = res[res[COL_DIV_YIELD] >= g_config[COL_DIV_YIELD]]
     res = res[res[COL_MRKT_CAP] >= g_config[COL_MRKT_CAP]]
     res = res[res[COL_MARGIN] >= g_config[COL_MARGIN]]
+    res = res[res[COL_CP_BP_RATIO] <= g_config[COL_CP_BP_RATIO]]
 
     return res
 
