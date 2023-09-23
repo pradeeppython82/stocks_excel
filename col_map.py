@@ -15,7 +15,7 @@ COL_PRICE = 'Current Price'
 COL_BULKDEALS = 'Bulk Deals'
 COL_BUY_CNGE_PERCENT = 'Buy Percentage Change'
 COL_SELL_CNGE_PERCENT = 'Sell Percentage Change'
-COL_CNGE_PERCENT = 'Percentage Change'
+COL_CNGE_PERCENT = '% Change'
 COL_VWAP = 'VWAP'
 COL_EPS = 'EPS'
 COL_PNL = 'NET PROFIT/LOSS'
@@ -67,6 +67,8 @@ def global_config_filters(df, g_config):
     res = res[res[COL_MRKT_CAP] >= g_config[COL_MRKT_CAP]]
     # res = res[res[COL_MARGIN] >= g_config[COL_MARGIN]]
     res = res[res[COL_CP_BP_RATIO] <= g_config[COL_CP_BP_RATIO]]
+    res = res[res[COL_52W_H] <= g_config[COL_52W_H]]
+    res = res[res[COL_52W_L] <= g_config[COL_52W_L]]
 
     return res
 
