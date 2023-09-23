@@ -59,13 +59,13 @@ def need_recommendataion(index, portifolio):
 def global_config_filters(df, g_config):
     res = df[g_config[COL_SYM_PE_MIN] <= df[COL_SYM_PE]]
     res = res[res[COL_SYM_PE] <= g_config[COL_SYM_PE_MAX]]
-    res = res[g_config[COL_SEC_PE_MIN] <= res[COL_SEC_PE]]
-    res = res[res[COL_SEC_PE] <= g_config[COL_SEC_PE_MAX]]
+    # res = res[g_config[COL_SEC_PE_MIN] <= res[COL_SEC_PE]]
+    # res = res[res[COL_SEC_PE] <= g_config[COL_SEC_PE_MAX]]
     res = res[res[COL_ROE] >= g_config[COL_ROE]]
     res = res[res[COL_ROCE] >= g_config[COL_ROCE]]
     res = res[res[COL_DIV_YIELD] >= g_config[COL_DIV_YIELD]]
     res = res[res[COL_MRKT_CAP] >= g_config[COL_MRKT_CAP]]
-    res = res[res[COL_MARGIN] >= g_config[COL_MARGIN]]
+    # res = res[res[COL_MARGIN] >= g_config[COL_MARGIN]]
     res = res[res[COL_CP_BP_RATIO] <= g_config[COL_CP_BP_RATIO]]
 
     return res
@@ -73,27 +73,30 @@ def global_config_filters(df, g_config):
 def buy_recommendation(df, portifolio, g_config):
     res = global_config_filters(df, g_config)
 
+    """
     for index, row in res.iterrows():
-        # if not need_recommendataion(index, portifolio):
-            # continue # skip the stock from recommendataion
+        if not need_recommendataion(index, portifolio):
+            continue # skip the stock from recommendataion
         notes = []
-        # if row[COL_PRICE] <= parse_dict(index, COL_BUY, data=portifolio):
-            # notes.append('our buy target')
+        if row[COL_PRICE] <= parse_dict(index, COL_BUY, data=portifolio):
+            notes.append('our buy target')
         if isinstance(row[COL_SEC_PE], (int, float)) and isinstance(row[COL_SYM_PE], (int, float)) and row[COL_SYM_PE] <= parse_dict(index, COL_SYM_PE, data=portifolio, default=5) and row[COL_SYM_PE] <= row[COL_SEC_PE]:
             notes.append('Sym P/E')
-        # if row[COL_DIV_YIELD] >= parse_dict(index, COL_DIV_YIELD, data=portifolio, default=10):
-            # notes.append('Dividend yield')
-        # if row[COL_CNGE_PERCENT] <= parse_dict(index, COL_BUY_CNGE_PERCENT, data=portifolio, default=-8):
-            # notes.append('Change in a day')
-        # if row[COL_BULKDEALS][1] == 'BUY':
-            # notes.append('Bulk deals')
+        if row[COL_DIV_YIELD] >= parse_dict(index, COL_DIV_YIELD, data=portifolio, default=10):
+            notes.append('Dividend yield')
+        if row[COL_CNGE_PERCENT] <= parse_dict(index, COL_BUY_CNGE_PERCENT, data=portifolio, default=-8):
+            notes.append('Change in a day')
+        if row[COL_BULKDEALS][1] == 'BUY':
+            notes.append('Bulk deals')
 
         if notes:
             res.at[index, COL_RECOMMEND_B_S] = 'Buy'
             res.at[index, COL_RECOMMEND_NOTES] = ','.join(notes)
+    """
 
     # limit dataframe for only buy and sort
-    return res[res[COL_RECOMMEND_B_S] == 'Buy'].sort_values(by=[COL_MARGIN], ascending=False)
+    # return res[res[COL_RECOMMEND_B_S] == 'Buy'].sort_values(by=[COL_MARGIN], ascending=False)
+    return res.sort_values(by=[COL_MRKT_CAP], ascending=False)
 
 
 def sell_recommendation(df, portifolio):
