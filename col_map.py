@@ -36,6 +36,8 @@ COL_RECOMMEND_B_S = 'Buy/Sell/None'
 COL_RECOMMEND_NOTES = 'Notes'
 COL_RANK = 'Rank'
 COL_CP_BP_RATIO = 'CPrice BPrice Ratio'
+COL_AVG_PRICE = 'AVG Price'
+COL_UR_PNL = 'U/R PNL'
 
 
 def parse_dict(*args, data=None, default=None):
