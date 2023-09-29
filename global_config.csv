@@ -5,9 +5,10 @@ Sector P/E Min,2
 Sector P/E Max,56
 ROCE,20
 ROE,9.2
-Dividend Yield,0.75
-Market Cap,3000
+Div Yield,0.75
+Mkt Cap,3000
 Buy Margin,-1
-CPrice BPrice Ratio,7.5
+Price / BookVal,7.5
 52W High,90
 52W Low,130
+Promoters %,49
