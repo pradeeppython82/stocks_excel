@@ -66,7 +66,7 @@ def global_config_filters(df, g_config):
 
 def buy_recommendation(df, userconfig, g_config):
     res = df
-    # res = global_config_filters(df, g_config)
+    res = global_config_filters(df, g_config)
 
     """
     for index, row in res.iterrows():
