@@ -19,7 +19,8 @@ COL_EPS = 'EPS'
 COL_MRKT_CAP = 'Mkt Cap'
 COL_PNL = 'PNL'
 COL_PRICE = 'Price'
-COL_PROFIT_GROWTH_PERCENT = 'Profit Growth % (3, TTM)'
+COL_PROFIT_GROWTH_PERCENT_3Y = 'Profit Growth % (3Y)'
+COL_PROFIT_GROWTH_PERCENT_TTM = 'Profit Growth % (TTM)'
 COL_PROMT_PERCENT = 'Prom hold %'
 COL_RANK = 'Rank'
 COL_RECOMMEND_B_S = 'Buy/Sell/None'
@@ -40,20 +41,6 @@ COL_UR_PNL = 'U/R PNL'
 COL_VAL_TRADED = 'Total Value Traded'
 COL_VOL_TRADED = 'Total Volume Traded'
 COL_VWAP = 'VWAP'
-
-
-def parse_dict(*args, data=None, default=None):
-    """Function parse data dict in the order of the args."""
-    if not data:
-        raise ValueError('Data is Empty')
-    res = None
-    for i in args:
-        res = data.get(i, None)
-        if not res:
-            return default if default != None else res
-        # if the res is list of dicts take latest dict
-        data = res[0] if isinstance(res, (list, tuple)) else res
-    return res
 
 
 def need_recommendataion(index, portifolio):
@@ -77,8 +64,9 @@ def global_config_filters(df, g_config):
 
     return res
 
-def buy_recommendation(df, portifolio, g_config):
-    res = global_config_filters(df, g_config)
+def buy_recommendation(df, userconfig, g_config):
+    res = df
+    # res = global_config_filters(df, g_config)
 
     """
     for index, row in res.iterrows():
