@@ -3,12 +3,12 @@ Symbol P/E Min,2
 Symbol P/E Max,38
 Sector P/E Min,2
 Sector P/E Max,38
-ROCE,11
-ROE,8
-Div Yield,0.5
+ROCE,20
+ROE,18
+Div Yield,0.3
 Mkt Cap,100
 Buy Margin,-1
-Price / Book,9.5
-52W High,93
-52W Low,137
-Prom hold %,35
+Price / Book,9.9
+52W High,91
+52W Low,146
+Prom hold %,51
