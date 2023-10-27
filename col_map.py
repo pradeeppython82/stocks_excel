@@ -62,8 +62,8 @@ def global_config_filters(df, g_config):
     res = res[res[COL_52W_H] <= g_config[COL_52W_H]]
     res = res[res[COL_52W_L] <= g_config[COL_52W_L]]
     res = res[res[COL_PROMT_PERCENT] >= g_config[COL_PROMT_PERCENT]]
-    # res = res[res[COL_PROFIT_GROWTH_PERCENT_3Y] >= g_config[COL_PROFIT_GROWTH_PERCENT_3Y]]
-    # res = res[res[COL_PROFIT_GROWTH_PERCENT_TTM] >= g_config[COL_PROFIT_GROWTH_PERCENT_TTM]]
+    res = res[res[COL_PROFIT_GROWTH_PERCENT_3Y] >= g_config[COL_PROFIT_GROWTH_PERCENT_3Y]]
+    res = res[res[COL_PROFIT_GROWTH_PERCENT_TTM] >= g_config[COL_PROFIT_GROWTH_PERCENT_TTM]]
 
     return res
 
