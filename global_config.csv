@@ -1,16 +1,16 @@
 Name,val
 Symbol P/E Min,1
-Symbol P/E Max,47
+Symbol P/E Max,38
 Sector P/E Min,1
-Sector P/E Max,47
-ROCE,20
-ROE,20
-Div Yield,.5
-Mkt Cap,100
+Sector P/E Max,38
+ROCE,17
+ROE,12
+Div Yield,.25
+Mkt Cap,50
 Buy Margin,-1
 Price / Book,9.9
 52W High,96.5
-52W Low,182
+52W Low,155
 Prom hold %,35
-Profit Growth % (3Y),15
-Profit Growth % (TTM),5
+Profit Growth % (3Y),30
+Profit Growth % (TTM),10
