@@ -5,12 +5,12 @@ Sector P/E Min,1
 Sector P/E Max,38
 ROCE,12
 ROE,12
-Div Yield,.2
+Div Yield,0.01
 Mkt Cap,50
 Buy Margin,-1
 Price / Book,9.9
-52W High,83
+52W High,80.3
 52W Low,199.1
-Prom hold %,35
-Profit Growth % (3Y),30
-Profit Growth % (TTM),10
+Prom hold %,50
+Profit Growth % (3Y),18
+Profit Growth % (TTM),8
